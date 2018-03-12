@@ -5,20 +5,33 @@ import static junit.framework.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.OriginalGame;
 
 public class GameTest {
 
-    private String SOME_PLAYER;
+    private String SOME_PLAYER = "Robert";
+    private ByteArrayOutputStream outputStream;
+    private Game game;
+    private OriginalGame originalGame;
+
+    @Before
+    public void setUp() {
+        outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+
+        game = new Game();
+        originalGame = new OriginalGame();
+    }
 
     @Test
     public void whenANewGameNothingHappens() {
         // given
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        System.setOut(printStream);
+
         // when
         new Game();
 
@@ -29,16 +42,15 @@ public class GameTest {
     @Test
     public void whenAPlayerIsAddedToAGameNameAndNumberOfPlayerIsDisplayed() {
         // given
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        System.setOut(printStream);
+        originalGame.add(SOME_PLAYER);
+        final String originalGameOutput = outputStream.toString();
+
         // when
-        Game game = new Game();
-        SOME_PLAYER = "Robert";
+        outputStream.reset();
         game.add(SOME_PLAYER);
+        final String gameOutputStream = outputStream.toString();
         // then
-        assertEquals("Robert was added\n"
-                + "They are player number 1\n", outputStream.toString());
+        assertEquals(originalGameOutput, gameOutputStream);
 
     }
 }
