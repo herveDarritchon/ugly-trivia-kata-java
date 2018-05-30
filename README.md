@@ -31,4 +31,5 @@ Let people know how they can dive into the project, include important links to t
 A short snippet describing the license (MIT, Apache, etc.)
 
 
-https://myshop-staging.preprod.sosh.fr/ 
+https://myshop-staging.preprod.sosh.fr/mobile/forfait-mobile-4G
+
